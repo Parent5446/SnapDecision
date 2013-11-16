@@ -1,0 +1,11 @@
+[db]
+	type = mysql
+	name = webbash
+	host = 127.0.0.1
+	user = root
+	password = password
+
+[webbash]
+	hostname = localhost
+	bcryptrounds = 5
+	historylimit = 50
