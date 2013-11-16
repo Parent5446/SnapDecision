@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="google-appengine-php" name="Google App Engine (Python)">
+      <configuration>
+        <option name="rootFolder" value="" />
+        <option name="sdkFolder" value="$USER_HOME$/google_appengine" />
+        <option name="pythonPath" value="/usr/bin/python" />
+        <option name="email" value="tylerromeo@gmail.com" />
+        <option name="gp" value="dff2df93df9edfccdf98df9cdfe5dffbdf98dfcfdffedf9c" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/api/tests" isTestSource="true" />
