@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 .idea/
+=======
+*~
+*\.bak
+api/config.ini
+>>>>>>> 10ca1a21b46c8490a6da6ac163f7dba86bbda42d
