@@ -34,9 +34,10 @@ class DI
 	 * @param \PDO $db Database object
 	 * @param array $config SnapDecision configuration options
 	 */
-	public function __construct( \PDO $db, array $config ) {
+	public function __construct( \PDO $db, \Google_Client $google, array $config ) {
 		$this->config = $config;
 		$this->db = $db;
+		$this->google = $google;
 	}
 
 	/**
@@ -52,4 +53,11 @@ class DI
 	 * @var \PDO
 	 */
 	public $db;
+
+	/**
+	 * Google client
+	 *
+	 * @var \Google_Client
+	 */
+	public $google;
 }
