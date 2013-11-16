@@ -1,8 +1,8 @@
-application: snapchoice
+application: bionic-bond-401
 version: 1
 runtime: php
 api_version: 1
 
 handlers:
 - url: /*
-  script: api.php
+  script: api/api.php

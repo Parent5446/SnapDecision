@@ -49,6 +49,8 @@ $google->setClientSecret( $config['snapdecision']['clientsecret'] );
 $google->setRedirectUri( $config['snapdecision']['redirecturi'] );
 $client->setDeveloperKey( $config['snapdecision']['devkey'] );
 
+$di = new SnapDecision\DI( $db, $google, $config );
+
 // Set up autoloader
 require 'SnapDecision/Autoloader.php';
 require 'SnapDecision/Util.php';

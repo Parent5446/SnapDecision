@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fcc055d5-c1c2-476d-bbf0-57e76a718962" name="Default" comment="">
+    <list default="true" id="fcc055d5-c1c2-476d-bbf0-57e76a718962" name="Default" comment="Added configuration for AppEngine dev server.">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/api/app.yaml" afterPath="$PROJECT_DIR$/app.yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.php" afterPath="$PROJECT_DIR$/api/api.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/bootstrap.php" afterPath="$PROJECT_DIR$/api/bootstrap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/config.ini" afterPath="$PROJECT_DIR$/api/config.ini" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SnapDecision.iws" />
@@ -25,10 +29,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SearchController.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SearchController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/SnapDecision/Controllers/SearchController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="0" selection-start="675" selection-end="675" vertical-scroll-proportion="0.97583646" vertical-offset="0" max-vertical-offset="645">
+            <state line="40" column="0" selection-start="675" selection-end="675" vertical-scroll-proportion="-17.0" vertical-offset="117" max-vertical-offset="645">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.ini" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/config.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="0" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DI.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/SnapDecision/DI.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="41" selection-start="1296" selection-end="1296" vertical-scroll-proportion="-13.25" vertical-offset="42" max-vertical-offset="750">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/api/api.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="361" selection-end="361" vertical-scroll-proportion="0.2556818" vertical-offset="0" max-vertical-offset="528">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Router.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/SnapDecision/Router.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="187.58333" vertical-offset="4502" max-vertical-offset="5130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/bootstrap.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="55" column="10" selection-start="2055" selection-end="2055" vertical-scroll-proportion="-17.0" vertical-offset="132" max-vertical-offset="660">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.yaml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="13" selection-start="102" selection-end="102" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
               <folding />
             </state>
           </provider>
@@ -57,7 +115,11 @@
         <option value="$PROJECT_DIR$/google_api.php" />
         <option value="$PROJECT_DIR$/api/SnapDecision/Backend/amazon_api.php" />
         <option value="$PROJECT_DIR$/api/SnapDecision/Backend/google_api.php" />
+        <option value="$PROJECT_DIR$/api/bootstrap.php" />
+        <option value="$PROJECT_DIR$/api/api.php" />
+        <option value="$PROJECT_DIR$/app.yaml" />
         <option value="$PROJECT_DIR$/api/SnapDecision/Controllers/SearchController.php" />
+        <option value="$PROJECT_DIR$/api/config.ini" />
       </list>
     </option>
   </component>
@@ -202,7 +264,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="228" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="editor.preferences.appearance" />
+    <property name="options.lastSelected" value="com.jetbrains.php.gae.AppEnginePhpModulesConfigurable" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/api" />
@@ -218,6 +280,11 @@
     <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager" selected="App Engine for PHP.AppEngine-Dev">
     <configuration default="false" name="amazon_api.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/amazon_api.php">
@@ -241,14 +308,14 @@
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
-    <configuration default="false" name="AppEngine-Dev" type="AppEnginePhpConfigurationType" factoryName="App Engine for PHP" singleton="true" phpCgiPath="/usr/bin/php" port="8888" workingDirectory="$PROJECT_DIR$/api">
+    <configuration default="false" name="AppEngine-Dev" type="AppEnginePhpConfigurationType" factoryName="App Engine for PHP" singleton="true" parameters="--php_remote_debugging=yes" phpCgiPath="/usr/bin/php" port="8888">
       <RunnerSettings RunnerId="PhpRunner" />
       <ConfigurationWrapper RunnerId="PhpRunner" />
       <method />
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="PHP Script.amazon_api.php" />
-      <item index="1" class="java.lang.String" itemvalue="App Engine for PHP.AppEngine-Dev" />
+      <item index="0" class="java.lang.String" itemvalue="App Engine for PHP.AppEngine-Dev" />
+      <item index="1" class="java.lang.String" itemvalue="PHP Script.amazon_api.php" />
     </list>
     <recent_temporary>
       <list size="1">
@@ -288,7 +355,11 @@
       <created>1384635583434</created>
       <updated>1384635583434</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added configuration for AppEngine dev server.">
+      <created>1384635647112</created>
+      <updated>1384635647112</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -301,11 +372,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.181875" sideWeight="0.7811671" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.181875" sideWeight="0.7679045" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2188329" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2320955" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -325,7 +396,8 @@
     </option>
     <MESSAGE value="Added Google to DI and search controller." />
     <MESSAGE value="Fixed constructor for controller." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed constructor for controller." />
+    <MESSAGE value="Added configuration for AppEngine dev server." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added configuration for AppEngine dev server." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -380,16 +452,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/SnapDecision/Router.php">
+    <entry file="file://$PROJECT_DIR$/api/SnapDecision/Controllers/SearchController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.1692743" vertical-offset="4337" max-vertical-offset="5130">
+        <state line="40" column="0" selection-start="675" selection-end="675" vertical-scroll-proportion="-17.0" vertical-offset="117" max-vertical-offset="645">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/SnapDecision/Controllers/SearchController.php">
+    <entry file="file://$PROJECT_DIR$/api/SnapDecision/DI.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="675" selection-end="675" vertical-scroll-proportion="0.97583646" vertical-offset="0" max-vertical-offset="645">
+        <state line="43" column="41" selection-start="1296" selection-end="1296" vertical-scroll-proportion="-13.25" vertical-offset="42" max-vertical-offset="750">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/SnapDecision/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="187.58333" vertical-offset="4502" max-vertical-offset="5130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="10" selection-start="2055" selection-end="2055" vertical-scroll-proportion="-17.0" vertical-offset="132" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="102" selection-end="102" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="361" selection-end="361" vertical-scroll-proportion="0.2556818" vertical-offset="0" max-vertical-offset="528">
           <folding />
         </state>
       </provider>
