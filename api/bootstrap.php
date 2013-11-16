@@ -39,20 +39,27 @@ if ( !isset( $config['snapdecision']['fileroot'] ) ) {
 	$config['snapdecision']['fileroot'] = "{$config['snapdecision']['root']}/filesystem";
 }
 
-$db = new PDO( "{$config['db']['connect_string']}", $config['db']['user'], $config['db']['password'] );
+$db = new \PDO( $config['db']['connect_string'], $config['db']['user'], $config['db']['password'] );
 $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-$google = new Google_Client();
+$google = new \Google_Client( [
+	'ioClass' => 'Google_HttpStreamIO',
+	'cacheClass' => 'Google_MemcacheCache',
+	// The memcached host and port do not matter since AppEngine
+	// overrides them from app.yaml, but we need these values for the client
+	// library to work
+	'ioMemCacheCache_host' => 'invalid.domain',
+	'ioMemCacheCache_port' => '37337',
+] );
 $google->setApplicationName( 'SnapDecision' );
 $google->setClientId( $config['snapdecision']['clientid'] );
 $google->setClientSecret( $config['snapdecision']['clientsecret'] );
 $google->setRedirectUri( $config['snapdecision']['redirecturi'] );
-$client->setDeveloperKey( $config['snapdecision']['devkey'] );
-
-$di = new SnapDecision\DI( $db, $google, $config );
 
 // Set up autoloader
 require 'SnapDecision/Autoloader.php';
 require 'SnapDecision/Util.php';
-$autoloader = new SnapDecision\Autoloader( $config['snapdecision']['root'] );
+$autoloader = new \SnapDecision\Autoloader( $config['snapdecision']['root'] );
 spl_autoload_register( [ $autoloader, 'autoload' ] );
+
+$di = new SnapDecision\DI( $db, $google, $config );
