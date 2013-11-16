@@ -68,7 +68,7 @@ class Router
 			// $this->startSession();
 			$this->performRequest( $method, $url, $headers, $data );
 		} catch ( HttpException $e ) {
-			header( "HTTP/1.0 {$e->getHttpCode()} {$e->getHttpMsg()}" );
+			http_response_code( $e->getHttpCode() );
 			header( 'Content-Type: application/json' );
 			foreach ( $e->getHeaders() as $header => $value ) {
 				header( "$header: $value" );
@@ -88,8 +88,13 @@ class Router
 
 		// Get a standard list of request headers
 		$headers = [ ];
+		$apache_headers = null;
 		if ( function_exists( 'apache_request_headers' ) ) {
-			foreach ( apache_request_headers() as $name => $value ) {
+			$apache_headers = apache_request_headers();
+		}
+
+		if ( $apache_headers !== null && $apache_headers !== false ) {
+			foreach ( $apache_headers as $name => $value ) {
 				$headers[strtoupper( $name )] = $value;
 			}
 		} else {
@@ -102,6 +107,10 @@ class Router
 					$headers[$name] = $value;
 				}
 			}
+		}
+
+		if ( !isset( $headers['ACCEPT'] ) ) {
+			$headers['ACCEPT'] = '*/*';
 		}
 
 		$rawData = file_get_contents( 'php://input' );
@@ -178,8 +187,6 @@ class Router
 		if ( !( $response instanceof Response ) ) {
 			$response = new Response( $response );
 		}
-		$response->addHeader( 'X-Frame-Options', 'deny' );
-		$response->addHeader( 'Cache-Control', 'private, max-age=0' );
 
 		// Check if we need to send the request body based on the conditional
 		// HTTP headers
@@ -223,9 +230,6 @@ class Router
 
 		// Encode the response appropriately for the client
 		$responseData = '';
-		if ( !isset( $headers['ACCEPT'] ) ) {
-			$headers['ACCEPT'] = 'application/json';
-		}
 		foreach ( array_map( 'trim', explode( ',', $headers['ACCEPT'] ) ) as $accept ) {
 			switch ( $accept ) {
 				case '*/*':
@@ -283,7 +287,7 @@ class Router
 		foreach ( $response->getHeaders() as $key => $val ) {
 			header( "$key: $val" );
 		}
-		if ( $method !== 'HEAD' ) {
+		if ( $method !== 'head' && $method !== 'options' ) {
 			echo $responseData;
 		}
 
@@ -324,7 +328,7 @@ class Router
 		if ( !method_exists( $controller, $method ) ) {
 			$allowedMethods = array_map( 'strtoupper', get_class_methods( $controller ) );
 			$allowedMethods = array_intersect( $allowedMethods,
-				[ 'GET', 'HEAD', 'POST', 'PUT', 'DELETE' ] );
+				[ 'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS' ] );
 
 			throw new HttpException( 405, '', [ 'Allow' => implode( ', ', $allowedMethods ) ] );
 		}

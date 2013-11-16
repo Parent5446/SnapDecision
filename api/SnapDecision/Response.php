@@ -164,6 +164,7 @@ class Response
 			return false;
 		}
 
+		/** @noinspection PhpUndefinedMethodInspection */
 		$diff = $this->modifiedTime->diff( $mtime );
 
 		return !$diff->invert;
