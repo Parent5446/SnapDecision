@@ -11,4 +11,3 @@ $router->register( "/:item/:subresource?:id", '\SnapDecision\Controllers\Purchas
 
 // Run the request
 $router->executeMain();
-echo 'test';
