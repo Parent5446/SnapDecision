@@ -24,4 +24,4 @@ class SearchController
 	public function get( array $params, $data ) {
 
 	}
-} 
+}

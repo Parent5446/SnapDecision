@@ -25,9 +25,7 @@ error_reporting( E_ALL | E_STRICT );
 
 define( 'SNAPDECISION', 1.0 );
 
-//require "google/appengine/api/users/User.php";
-//require "google/appengine/api/users/UserService.php";
-//require "google/appengine/api/app_identity/AppIdentityService.php";
+require 'lib/google-api-php-client/src/Google_Client.php';
 
 if ( file_exists( 'vendor/autoload.php' ) ) {
 	/** @noinspection PhpIncludeInspection */
@@ -43,6 +41,13 @@ if ( !isset( $config['snapdecision']['fileroot'] ) ) {
 
 $db = new PDO( "{$config['db']['connect_string']}", $config['db']['user'], $config['db']['password'] );
 $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+$google = new Google_Client();
+$google->setApplicationName( 'SnapDecision' );
+$google->setClientId( $config['snapdecision']['clientid'] );
+$google->setClientSecret( $config['snapdecision']['clientsecret'] );
+$google->setRedirectUri( $config['snapdecision']['redirecturi'] );
+$client->setDeveloperKey( $config['snapdecision']['devkey'] );
 
 // Set up autoloader
 require 'SnapDecision/Autoloader.php';
