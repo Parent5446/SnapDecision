@@ -40,10 +40,7 @@ class Amazon_API
 
         // necessary parameters
         //$param['ResponceGroup'] = 'Large';
-        $param['SearchIndex'] = 'All';
 
-        //This is used as a test
-        //$param['ItemId'] = '076243631X';
         $param['AssociateTag'] = $this->associateTag;
         $param['AWSAccessKeyId'] = $this->publicKey;
         $param['Timestamp'] = gmdate("Y-m-d\TH:i:s\Z");
@@ -82,17 +79,17 @@ class Amazon_API
         $params['region'] = $this->region;
         $signature=$this->generateSignature($params);
 
-        return $signedUrl= "https://".$signature['host'].$signature['uri'].'?'.$signature['queryUrl'].'&Signature='.$signature['string'];
+		$uri = $signedUrl= "https://".$signature['host'].$signature['uri'].'?'.$signature['queryUrl'].'&Signature='.$signature['string'];
+		echo $uri . "\n";
+        return $uri;
     }
     public function getISBNXML($params)
     {
         //Paramaters needed
         $params['IdType'] = 'ISBN';
         $params['ProductGroup'] = 'Book';
-        $params['TruncateReviewsAt'] = '50';
-        $params['ResponseGroup'] = 'Reviews';
-        $params['IncludeReviewsSummary'] ='True';
         $params['Condition'] = 'New';
+		$params['SearchIndex'] = 'All';
         $params['Service'] = 'AWSECommerceService';
         $params['Operation'] = 'ItemLookup';
 
@@ -105,9 +102,9 @@ class Amazon_API
         $xml = file_get_contents($this->getSignedUrl($params), 0, stream_context_create(array('https' => array('timeout' => 1.5))));
         $xml = simplexml_load_string($xml);
 
-        //print_r($xml->Items);
+        print_r($xml->Items);
         if (isset($xml) && isset($xml->Items) && isset($xml->Items->Request) && isset($xml->Items->Request->IsValid) && $xml->Items->Request->IsValid == 'True') {
-            return $xml;
+            return $xml->Items->Item;
         } else {
             return "The request timed out";
         }
@@ -115,6 +112,7 @@ class Amazon_API
     public function getISBNPrice($params)
     {
         $params['Action'] = 'GetLowestOfferListingsForASIN';
+		$params['SearchIndex'] = 'All';
         $params['SellerId'] = $this->SellerId;
         $params['MarketplaceId'] = $this->MarketplaceId;
 
@@ -128,27 +126,6 @@ class Amazon_API
             return "The request timed out";
         }
     }
-
-    public function getUPCXML($params)
-    {
-        $params['IdType'] = 'UPC';
-
-        if(!isset($params['ItemId']))
-        {
-            //Error
-            return 'Invalid paramaters';
-
-        }
-        $xml = file_get_contents($this->getSignedUrl($params), 0, stream_context_create(array('http' => array('timeout' => 1.5))));
-        $xml = simplexml_load_string($xml);
-
-        //print_r($xml->Items);
-        if (isset($xml) && isset($xml->Items) && isset($xml->Items->Request) && isset($xml->Items->Request->IsValid)) {
-            return $xml->Items->Item;
-        } else {
-            return "The request timed out";
-        }
-    }
 }
 /*
 $test = new Amazon_API();
@@ -157,7 +134,7 @@ $paramaters = Array();
 $paramaters['ItemId'] = '1593271441';
 //$paramaters['ItemId'] = '';
 
-$xml =  $test->getISBNPrice($paramaters);
+$xml =  $test->getISBNXML($paramaters);
 
 print_r($xml);
 */
