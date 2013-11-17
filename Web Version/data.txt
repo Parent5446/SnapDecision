@@ -1,0 +1,22 @@
+/search?urn=<type>:{{userType}}
+		urn=isbn:{{userType}}
+		title={{userType}}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<table id="searchTextResults" >
+<tr><th>Name</th><th>Phone</th></tr>
+<tr ng-repeat="friend in friends | filter:searchText">
+<td>{{friend.name}}</td>
+<td>{{friend.phone}}</td>
+"{{searchText}}" 
+</tr>
+</table>
