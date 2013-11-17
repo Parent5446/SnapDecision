@@ -58,6 +58,7 @@ $google->setApplicationName( 'SnapDecision' );
 $google->setClientId( $config['snapdecision']['clientid'] );
 $google->setClientSecret( $config['snapdecision']['clientsecret'] );
 $google->setRedirectUri( $config['snapdecision']['redirecturi'] );
+$google->setAccessType( 'offline' );
 $google->setScopes( [
 	'https://www.googleapis.com/auth/glass.timeline',
 	'https://www.googleapis.com/auth/glass.location',

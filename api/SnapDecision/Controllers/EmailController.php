@@ -52,8 +52,8 @@ class EmailController {
 		$email = $versions['text/plain'];
 		$title = trim( $email->getBody() );
 
-		//$controller = new SearchController( $this->deps );
-		//$results = $controller->get( [ 'title' => $title ], null );
+		$controller = new SearchController( $this->deps );
+		$results = $controller->get( [ 'title' => $title ], null );
 
 		$selectStmt = $this->deps->db->prepare(
 			'SELECT access_token FROM users'
@@ -62,10 +62,34 @@ class EmailController {
 		$selectStmt->execute();
 		$accessToken = $selectStmt->fetchColumn();
 
+		$html = <<< HTML
+<article>
+  <figure>
+    <img height="360px" src="{$results['image']}">
+  </figure>
+  <section>
+    <h1 class="text-large">{$results['title']}</h1>
+    <p class="text-x-small">
+      ISBN: {$results['isbn']}
+    </p>
+    <hr>
+    <p class="text-normal">
+      Price: {$results['price']}
+    </p>
+  </section>
+</article>
+HTML;
+
 		$this->deps->google->setAccessToken( $accessToken );
 		$mirrorApi = new \Google_MirrorService( $this->deps->google );
 		$timelineItem = new \Google_TimelineItem();
-		$timelineItem->setTitle( $title );
+		$timelineItem->setTitle( $results['title'] );
+		$timelineItem->setHtml( $html );
+
+		$notificationConfig = new \Google_NotificationConfig();
+		$notificationConfig->setLevel( 'AUDIO_ONLY' );
+		$timelineItem->setNotification( $notificationConfig );
+
 		$mirrorApi->timeline->insert( $timelineItem );
 
 		return '';
