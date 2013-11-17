@@ -83,7 +83,7 @@ class Router
 	 * @return array Array of (method, URL, headers, body)
 	 */
 	private function getRequestInfo() {
-		$url = isset( $_SERVER['PATH_INFO'] ) ? $_SERVER['PATH_INFO'] : '/';
+		$url = isset( $_SERVER['PATH_INFO'] ) ? $_SERVER['PATH_INFO'] : $_SERVER['PHP_SELF'];
 		$method = strtolower( $_SERVER['REQUEST_METHOD'] );
 
 		// Get a standard list of request headers
@@ -114,8 +114,9 @@ class Router
 		}
 
 		$rawData = file_get_contents( 'php://input' );
+		$query = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
 
-		return [ $method, $url, $_SERVER['QUERY_STRING'], $headers, $rawData ];
+		return [ $method, $url, $query, $headers, $rawData ];
 	}
 
 	/**
@@ -309,6 +310,6 @@ class Router
 		}
 
 		// Run the controller
-		return $controller->$method( $matches, $request->getBody() );
+		return $controller->$method( $matches, $request );
 	}
 }

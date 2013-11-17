@@ -26,6 +26,8 @@ error_reporting( E_ALL | E_STRICT );
 define( 'SNAPDECISION', 1.0 );
 
 require 'lib/google-api-php-client/src/Google_Client.php';
+require 'lib/google-api-php-client/src/contrib/Google_Oauth2Service.php';
+require 'lib/google-api-php-client/src/contrib/Google_MirrorService.php';
 
 if ( file_exists( 'vendor/autoload.php' ) ) {
 	/** @noinspection PhpIncludeInspection */
@@ -51,10 +53,17 @@ $google = new \Google_Client( [
 	'ioMemCacheCache_host' => 'invalid.domain',
 	'ioMemCacheCache_port' => '37337',
 ] );
+$google->setUseObjects( true );
 $google->setApplicationName( 'SnapDecision' );
 $google->setClientId( $config['snapdecision']['clientid'] );
 $google->setClientSecret( $config['snapdecision']['clientsecret'] );
 $google->setRedirectUri( $config['snapdecision']['redirecturi'] );
+$google->setScopes( [
+	'https://www.googleapis.com/auth/glass.timeline',
+	'https://www.googleapis.com/auth/glass.location',
+	'https://www.googleapis.com/auth/userinfo.profile',
+	'https://www.googleapis.com/auth/userinfo.email',
+] );
 
 // Set up autoloader
 require 'SnapDecision/Autoloader.php';

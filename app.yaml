@@ -4,6 +4,9 @@ runtime: php
 api_version: 1
 
 handlers:
+- url: /setup
+  script: api/setup.php
+  login: admin
 - url: /_ah/mail/.+
   script: api/api.php
 - url: /.*

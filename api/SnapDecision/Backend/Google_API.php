@@ -3,7 +3,7 @@ namespace SnapDecision\Backend;
 
 class Google_API
 {
-	var $API_KEY = 'AIzaSyAlimP1duVdbwWoJRnb7IEs1mMuKiED52U';
+	var $API_KEY = 'AIzaSyB0vHwjfMMy-OUuOZBxnzpYeNUj7VgSVoE';
 	private function makeBookURL($params)
 	{
 		//https://www.googleapis.com/books/v1/volumes?q=isbn%3A1593271441&maxResults=1&printType=books&projection=full&key={YOUR_API_KEY}
