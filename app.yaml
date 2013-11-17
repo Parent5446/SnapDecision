@@ -4,5 +4,10 @@ runtime: php
 api_version: 1
 
 handlers:
+- url: /_ah/mail/.+
+  script: api/api.php
 - url: /*
   script: api/api.php
+
+inbound_services:
+- mail

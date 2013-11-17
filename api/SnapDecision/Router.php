@@ -138,52 +138,12 @@ class Router
 			}
 		}
 
-		// Use the method and Content-Type headers to extract the final representation
-		// of the request body
-		if ( isset( $headers['CONTENT-TYPE'] ) ) {
-			$pos = strpos( $headers['CONTENT-TYPE'], ';' );
-			if ( $pos !== false ) {
-				$contentType = substr( $headers['CONTENT-TYPE'], 0, $pos );
-			} else {
-				$contentType = $headers['CONTENT-TYPE'];
-			}
-
-			switch ( $method ) {
-				case 'get':
-				case 'head':
-				case 'delete':
-					$data = null;
-					break;
-
-				/** @noinspection PhpMissingBreakStatementInspection */
-				case 'post':
-					if ( $contentType === 'application/x-www-form-urlencoded' ) {
-						$data = $_POST;
-						break;
-					}
-
-				case 'patch':
-				case 'put':
-					if ( $contentType === 'application/json' ) {
-						$data = json_decode( $rawData, true );
-					} elseif ( $contentType === 'application/x-www-form-urlencoded' ) {
-						parse_str( $rawData, $data );
-					} elseif ( $contentType === 'text/plain' ) {
-						$data = $rawData;
-					} else {
-						throw new HttpException( 415, "Invalid content type: $contentType" );
-					}
-					break;
-
-				default:
-					throw new HttpException( 405 );
-			}
-		} else {
-			$data = null;
-		}
+		$request = new HttpRequest();
+		$request->addHeaders( $headers );
+		$request->parseBody( $rawData );
 
 		// Execute the request
-		$response = $this->runController( $method, $url, $data, $headers );
+		$response = $this->runController( $method, $url, $request );
 		if ( !( $response instanceof Response ) ) {
 			$response = new Response( $response );
 		}
@@ -299,13 +259,12 @@ class Router
 	 *
 	 * @param string $method HTTP method
 	 * @param string $url URL
-	 * @param mixed $data Parsed data from the request body
-	 * @param array $headers HTTP headers
+	 * @param HttpRequest $request Parsed data from the request body
 	 *
 	 * @return \SnapDecision\Response A response object
 	 * @throws HttpException for various errors
 	 */
-	private function runController( $method, $url, $data, $headers ) {
+	private function runController( $method, $url, HttpRequest $request ) {
 		$controller = null;
 		$matches = [ ];
 		$queryParamsDef = [ ];
@@ -343,13 +302,11 @@ class Router
 			}
 		}
 
-		foreach ( $headers as $key => $val ) {
-			if ( isset( $headerParamsDef[$key] ) ) {
-				$matches[$headerParamsDef[$key]] = $val;
-			}
+		foreach ( $headerParamsDef as $headerName => $key ) {
+			$matches[$key] = $request->getHeader( $headerName );
 		}
 
 		// Run the controller
-		return $controller->$method( $matches, $data );
+		return $controller->$method( $matches, $request->getBody() );
 	}
 }
