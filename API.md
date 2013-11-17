@@ -29,3 +29,14 @@ http://webservices.amazon.com/onca/xml?
      Version=2011-08-01
      &Timestamp=[YYYY-MM-DDThh:mm:ssZ]
      &Signature=[Request Signature]
+
+
+### GoodReads
+####Get review statistics given a list of ISBNs
+https://www.goodreads.com/book/review_counts.json?isbns=0441172717%2C0141439602&key=3lgIZ9vQ7Gr882nHKep5A
+
+####Get the reviews for a book given an ISBN
+https://www.goodreads.com/book/isbn?isbn=0441172717&key=3lgIZ9vQ7Gr882nHKep5A&format=json
+
+####Get the reviews for a book given a title string
+https://www.goodreads.com/book/title?key=3lgIZ9vQ7Gr882nHKep5A&title=Hound+of+the+Baskervilles&format=json

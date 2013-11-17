@@ -4,8 +4,7 @@ namespace SnapDecision\Backend;
 class Google_API
 {
 	var $API_KEY = 'AIzaSyAlimP1duVdbwWoJRnb7IEs1mMuKiED52U';
-//`https://www.googleapis.com/books/v1/volumes?q=${isbn_number}+isbn`
-	private function makeURL($params)
+	private function makeBookURL($params)
 	{
 		//https://www.googleapis.com/books/v1/volumes?q=isbn%3A1593271441&maxResults=1&printType=books&projection=full&key={YOUR_API_KEY}
 		$uri = 'https://www.googleapis.com/books/v1/volumes?q=';
@@ -28,10 +27,12 @@ class Google_API
 
 	public function getISBN($params)
 	{
-		$uri = $this->makeURL($params);
+		$uri = $this->makeBookURL($params);
 		echo $uri;
 		return file_get_contents($uri, 0, stream_context_create(array('https' => array('timeout' => 1.5))));
 	}
+
+	public function
 }
 
 $test = new Google_API();
