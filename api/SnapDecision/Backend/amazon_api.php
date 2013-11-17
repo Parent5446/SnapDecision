@@ -1,5 +1,6 @@
 <?php
 namespace SnapDecision\Backend;
+
 class Amazon_API
 {
     // public key
@@ -44,7 +45,7 @@ class Amazon_API
         $param['AssociateTag'] = $this->associateTag;
         $param['AWSAccessKeyId'] = $this->publicKey;
         $param['Timestamp'] = gmdate("Y-m-d\TH:i:s\Z");
-        //$param['Version'] = '2011-08-01';
+        $param['Version'] = '2011-08-01';
         ksort($param);
         foreach ($param as $key=>$value)
         {
@@ -92,6 +93,7 @@ class Amazon_API
 		$params['SearchIndex'] = 'All';
         $params['Service'] = 'AWSECommerceService';
         $params['Operation'] = 'ItemLookup';
+		$params['ResponseGroup'] = 'ItemAttributes,OfferSummary';
 
         if(!isset($params['ItemId']))
         {
@@ -127,16 +129,4 @@ class Amazon_API
         }
     }
 }
-/*
-$test = new Amazon_API();
-$paramaters = Array();
-
-$paramaters['ItemId'] = '1593271441';
-//$paramaters['ItemId'] = '';
-
-$xml =  $test->getISBNXML($paramaters);
-
-print_r($xml);
-*/
-
 ?>

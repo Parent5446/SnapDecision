@@ -32,14 +32,10 @@ class Google_API
 		return file_get_contents($uri, 0, stream_context_create(array('https' => array('timeout' => 1.5))));
 	}
 
-	public function
+	public function urnQuery($params)
+	{
+		$uri = 'https://www.googleapis.com/books/v1/volumes?q=' . $params . '&maxResults=1&printType=books&projection=full&key=' . $this->API_KEY;
+		return file_get_contents($uri, 0, stream_context_create(array('https' => array('timeout' => 1.5))));
+	}
 }
-
-$test = new Google_API();
-$params = Array();
-$params['type'] = 'isbn';
-$params['query'] = '1593271441';
-
-print_r($test->getISBN($params));
-
 ?>
