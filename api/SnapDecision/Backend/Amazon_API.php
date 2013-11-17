@@ -81,7 +81,7 @@ class Amazon_API
         $signature=$this->generateSignature($params);
 
 		$uri = $signedUrl= "https://".$signature['host'].$signature['uri'].'?'.$signature['queryUrl'].'&Signature='.$signature['string'];
-		echo $uri . "\n";
+		//echo $uri . "\n";
         return $uri;
     }
     public function getISBNXML($params)
@@ -104,8 +104,8 @@ class Amazon_API
         $xml = file_get_contents($this->getSignedUrl($params), 0, stream_context_create(array('https' => array('timeout' => 1.5))));
         $xml = simplexml_load_string($xml);
 
-        print_r($xml->Items);
-        if (isset($xml) && isset($xml->Items) && isset($xml->Items->Request) && isset($xml->Items->Request->IsValid) && $xml->Items->Request->IsValid == 'True') {
+        //print_r($xml->Items);
+        if (isset($xml) && isset($xml->Items) && isset($xml->Items->Request) && $xml->Items->Request->IsValid == 'True') {
             return $xml->Items->Item;
         } else {
             return "The request timed out";

@@ -21,53 +21,52 @@
  * @file
  */
 
-namespace SnapDecision;
-use SnapDecision\ProcessCache\StatementCache;
+namespace SnapDecision\ProcessCache;
+
+use \SnapDecision\DI;
 
 /**
- * Dependency injection container for the application
+ * Process cache for PDO prepared statements
+ *
+ * @see \PDOStatement
  */
-class DI
+class StatementCache extends ProcessCache
 {
 	/**
-	 * Construct the container
-	 *
-	 * @param \PDO $db Database object
-	 * @param \Google_Client $google Google client library
-	 * @param array $config SnapDecision configuration options
+	 * @return $this|string
 	 */
-	public function __construct( \PDO $db, \Google_Client $google, array $config ) {
-		$this->config = $config;
-		$this->db = $db;
-		$this->google = $google;
-		$this->stmtCache = new StatementCache( $this );
+	function getFactoryClass() {
+		return $this;
 	}
 
 	/**
-	 * SnapDecision configuration options
-	 *
-	 * @var array
+	 * @return array
 	 */
-	public $config;
+	function getFactoryFunctions() {
+		return [
+			'sql' => 'doPrepare',
+		];
+	}
 
 	/**
-	 * Database object
+	 * Shortcut function to prepare a SQL statement
 	 *
-	 * @var \PDO
+	 * @param string $sql SQL query to prepare
+	 * @return \PDOStatement Prepared statement
 	 */
-	public $db;
+	public function prepare( $sql ) {
+		return $this->get( 'sql', $sql );
+	}
 
 	/**
-	 * Google client
+	 * Creates the actual prepared statement from the DB
 	 *
-	 * @var \Google_Client
-	 */
-	public $google;
-
-	/**
-	 * PDO Statement cache
+	 * @param \SnapDecision\DI $deps Dependency injection container
+	 * @param string $sql SQL text to prepare
 	 *
-	 * @var \SnapDecision\ProcessCache\StatementCache
+	 * @return \PDOStatement Prepared statement
 	 */
-	public $stmtCache;
+	public static function doPrepare( DI $deps, $sql ) {
+		return $deps->db->prepare( $sql );
+	}
 }

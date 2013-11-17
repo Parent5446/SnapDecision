@@ -6,7 +6,7 @@ api_version: 1
 handlers:
 - url: /_ah/mail/.+
   script: api/api.php
-- url: /*
+- url: /.*
   script: api/api.php
 
 inbound_services:

@@ -64,9 +64,9 @@ class Router
 	 */
 	public function executeMain() {
 		try {
-			list( $method, $url, $headers, $data ) = $this->getRequestInfo();
+			list( $method, $url, $query, $headers, $data ) = $this->getRequestInfo();
 			// $this->startSession();
-			$this->performRequest( $method, $url, $headers, $data );
+			$this->performRequest( $method, $url, $query, $headers, $data );
 		} catch ( HttpException $e ) {
 			http_response_code( $e->getHttpCode() );
 			header( 'Content-Type: application/json' );
@@ -115,7 +115,7 @@ class Router
 
 		$rawData = file_get_contents( 'php://input' );
 
-		return [ $method, $url, $headers, $rawData ];
+		return [ $method, $url, $_SERVER['QUERY_STRING'], $headers, $rawData ];
 	}
 
 	/**
@@ -123,13 +123,14 @@ class Router
 	 *
 	 * @param string $method HTTP method
 	 * @param string $url URL
+	 * @param string $query Query string
 	 * @param array $headers HTTP headers
 	 * @param string $rawData Raw data from the request body
 	 *
 	 * @return \SnapDecision\Response A response object
 	 * @throws HttpException for various errors in input data
 	 */
-	public function performRequest( $method, $url, array $headers, $rawData ) {
+	public function performRequest( $method, $url, $query, array $headers, $rawData ) {
 		// Check the MD5 hash if available
 		if ( isset( $headers['CONTENT-MD5'] ) ) {
 			$hash = base64_decode( $headers['CONTENT-MD5'] );
@@ -143,7 +144,7 @@ class Router
 		$request->parseBody( $rawData );
 
 		// Execute the request
-		$response = $this->runController( $method, $url, $request );
+		$response = $this->runController( $method, $url, $query, $request );
 		if ( !( $response instanceof Response ) ) {
 			$response = new Response( $response );
 		}
@@ -259,12 +260,13 @@ class Router
 	 *
 	 * @param string $method HTTP method
 	 * @param string $url URL
+	 * @param string $query Query string
 	 * @param HttpRequest $request Parsed data from the request body
 	 *
 	 * @return \SnapDecision\Response A response object
 	 * @throws HttpException for various errors
 	 */
-	private function runController( $method, $url, HttpRequest $request ) {
+	private function runController( $method, $url, $query, HttpRequest $request ) {
 		$controller = null;
 		$matches = [ ];
 		$queryParamsDef = [ ];
@@ -274,6 +276,7 @@ class Router
 		foreach ( $this->routes as $pattern => $info ) {
 			list( $class, $queryParamsDef, $headerParamsDef ) = $info;
 			if ( preg_match( "!^{$pattern}$!", $url, $matches ) ) {
+				array_shift( $matches );
 				$controller = new $class( $this->deps );
 				break;
 			}
@@ -293,7 +296,6 @@ class Router
 		}
 
 		// Parse the query and generate a list of final parameters
-		$query = parse_url( "http:$url", PHP_URL_QUERY );
 		$rawParams = [ ];
 		parse_str( (string)$query, $rawParams );
 		foreach ( $rawParams as $key => $val ) {

@@ -10,25 +10,36 @@ class Google_API
 		$uri = 'https://www.googleapis.com/books/v1/volumes?q=';
 		switch($params['type'])
 		{
-			case 'intitle':
-			case 'inauthor':
-			case 'inpublisher':
-			case 'isbn';
-			case 'lccn':
-			case 'oclc':
-				$uri .= $params['type']  . ':' . $params['query']. '&maxResults=1&printType=books&projection=full&key=' . $this->API_KEY;
+			case 'title':
+				$g_type = 'intitle: ';
+				break;
+			case 'author':
+				$g_type = 'inauthor: ';
+				break;
+			case 'publisher':
+				$g_type = 'inpublisher: ';
+				break;
+			case 'urn:isbn';
+				$g_type = 'isbn: ';
+				break;
+			case 'urn:lccn':
+				$g_type = 'lccn: ';
+				break;
+			case 'urn:oclc':
+				$g_type = 'oclc: ';
 				break;
 			default:
 				return 'Error with Paramaters';
 				break;
 		}
+		$uri .= urlencode($g_type) . urlencode($params['query']) . '&maxResults=1&printType=books&projection=full&key=' . $this->API_KEY;
 		return $uri;
 	}
 
 	public function getISBN($params)
 	{
 		$uri = $this->makeBookURL($params);
-		echo $uri;
+		//echo $uri;
 		return file_get_contents($uri, 0, stream_context_create(array('https' => array('timeout' => 1.5))));
 	}
 

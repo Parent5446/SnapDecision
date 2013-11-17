@@ -9,6 +9,7 @@
 namespace SnapDecision\Controllers;
 
 use SnapDecision\Backend;
+use SnapDecision\HttpException;
 
 /**
  * Class SearchController
@@ -57,7 +58,7 @@ class SearchController
 			$query['query'] = $params['title'];
 
 			$json = $g_api->getISBN($query);
-			$json = json_decode($json);
+			$json = json_decode($json, true);
 
 		}
 		else if(isset($params['urn']))
@@ -72,28 +73,29 @@ class SearchController
 			throw new HttpException( 400, "Invalid request type" );
 		}
 
-		if($json['totalItems'] > 0)
+		if($json['totalItems'] == 0)
 		{
 			return [];//0
 		}
-
+		$json = $json['items'][0];
 
 		$responce['title'] = $json['volumeInfo']['title']; //Possoble $json["volumeInfo"]['subtitle']
-		$responce['isbn'] = [$json['volumeInfo']['industryIdentifiers']['ISBN_10'], $json['volumeInfo']['industryIdentifiers']['ISBN_13']];
+		$responce['isbn'] = $json['volumeInfo']['industryIdentifiers'];
 		$responce['image'] = $json['volumeInfo']['imageLinks']['thumbnail'];
 		$responce['rating'] = $json['volumeInfo']['averageRating'];
 		$responce['reviews'] = [];
 
 		//Amazon API
 		$paramaters = [];
-		$paramaters['ItemId'] = $responce['isbn'][0];
+		$paramaters['ItemId'] = $responce['isbn'][0]['identifier'];
 
 		$xml = $a_api->getISBNXML($paramaters);
-		if(isset($xml->OfferSummary))
-			$responce['price'] = $xml->OfferSummary->LowestNewPrice->FormattedPrice;
+		if(isset($xml->OfferSummary)) {
+			$responce['price'] = (string)$xml->OfferSummary->LowestNewPrice->FormattedPrice;
+		}
 
 		//Review API
-		$xml = $r_api->getReviews($responce['isbn'][0]);
+		$xml = $r_api->getReviews($paramaters['ItemId'], $responce['title']);
 		if(isset($xml))
 		{
 			foreach ($xml as $ratings)
