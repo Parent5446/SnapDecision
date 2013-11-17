@@ -3,18 +3,28 @@ namespace SnapDecision\Backend;
 
 class Google_API
 {
-	var $API_KEY = 'AIzaSyB0vHwjfMMy-OUuOZBxnzpYeNUj7VgSVoE';
+	private $API_KEY = 'AIzaSyB0vHwjfMMy-OUuOZBxnzpYeNUj7VgSVoE';
 
-	public function __construct( $deps ) {
+	/**
+	 * Dependency injection container
+	 *
+	 * @var \SnapDecision\DI
+	 */
+	private $deps;
+
+	/**
+	 * Construct the controller with the DI container
+	 *
+	 * @param \SnapDecision\DI $deps
+	 */
+	public function __construct( \SnapDecision\DI $deps ) {
 		$this->deps = $deps;
 	}
 
-	public function makeBookURL($params)
-	{
+	public function getISBN( $params ) {
 
-		$books = new \Google_BooksService($this->deps->google);
-		switch($params['type'])
-		{
+		$books = new \Google_BooksService( $this->deps->google );
+		switch ( $params['type'] ) {
 			case 'title':
 				$g_type = 'intitle: ';
 				break;
@@ -37,21 +47,16 @@ class Google_API
 				return 'Error with Paramaters';
 				break;
 		}
-		$vars = ['maxResults' => 1, 'printType' => 'books', 'projection' => 'full', 'key' => $this->API_KEY];
-		return $books->volumes->listVolumes(urlencode($g_type) . urlencode($params['query']), $vars);
+		$vars = [ 'maxResults' => 1, 'printType' => 'books', 'projection' => 'full' ];
+
+		$volumes = $books->volumes->listVolumes( $g_type . $params['query'], $vars );
 	}
 
-	public function getISBN($params, $deps)
-	{
-		$uri = $this->makeBookURL($params, $deps);
-		//echo $uri;
-		return file_get_contents($uri, 0, stream_context_create(array('https' => array('timeout' => 1.5))));
-	}
-
-	public function urnQuery($params)
-	{
+	public function urnQuery( $params ) {
 		$uri = 'https://www.googleapis.com/books/v1/volumes?q=' . $params . '&maxResults=1&printType=books&projection=full&key=' . $this->API_KEY;
-		return file_get_contents($uri, 0, stream_context_create(array('https' => array('timeout' => 1.5))));
+
+		return file_get_contents( $uri, 0, stream_context_create( [ 'https' => [ 'timeout' => 1.5 ] ] ) );
 	}
 }
+
 ?>

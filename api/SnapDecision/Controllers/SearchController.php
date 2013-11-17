@@ -47,9 +47,9 @@ class SearchController
 		}
 		$query = Array();
 		$responce = Array();
-		$g_api = new Backend\Google_API($this->deps);
-		$a_api = new Backend\Amazon_API();
-		$r_api = new Backend\Reviews_API();
+		$g_api = new Backend\Google_API( $this->deps );
+		$a_api = new Backend\Amazon_API( $this->deps );
+		$r_api = new Backend\Reviews_API( $this->deps );
 
 		if(isset($params['title']))
 		{

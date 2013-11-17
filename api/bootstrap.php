@@ -26,7 +26,7 @@ error_reporting( E_ALL | E_STRICT );
 define( 'SNAPDECISION', 1.0 );
 
 require 'lib/google-api-php-client/src/Google_Client.php';
-require 'lib/google-api-php-client/src/contrib/Google_BooksService.php ';
+require 'lib/google-api-php-client/src/contrib/Google_BooksService.php';
 require 'lib/google-api-php-client/src/contrib/Google_Oauth2Service.php';
 require 'lib/google-api-php-client/src/contrib/Google_MirrorService.php';
 

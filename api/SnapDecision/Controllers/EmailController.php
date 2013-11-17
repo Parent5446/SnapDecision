@@ -11,6 +11,7 @@ namespace SnapDecision\Controllers;
 
 use SnapDecision\HttpException;
 use SnapDecision\HttpRequest;
+use SnapDecision\DI;
 
 /**
  * Processes and email and sends a timeline info to the suer
@@ -30,7 +31,7 @@ class EmailController {
 	 *
 	 * @param \SnapDecision\DI $deps
 	 */
-	public function __construct( \SnapDecision\DI $deps ) {
+	public function __construct( DI $deps ) {
 		$this->deps = $deps;
 	}
 
@@ -45,7 +46,10 @@ class EmailController {
 	public function post( array $data, HttpRequest $request ) {
 		/** @var \SnapDecision\HttpRequest $subRequest */
 		$subRequest = $request->getBody();
-		$fromEmail = $subRequest->getHeader( 'From' );
+		$addrSpec = '([^@<>:;]+@[^@<>:;]+)';
+		$matches = [];
+		preg_match( "/$addrSpec|(?:.*<$addrSpec>)/", $subRequest->getHeader( 'From' ), $matches );
+		$fromEmail = $matches[1] ?: $matches[2];
 
 		/** @var \SnapDecision\HttpRequest[] $versions */
 		$versions = $subRequest->getBody();
@@ -56,9 +60,9 @@ class EmailController {
 		$results = $controller->get( [ 'title' => $title ], null );
 
 		$selectStmt = $this->deps->db->prepare(
-			'SELECT access_token FROM users'
+			'SELECT access_token FROM users WHERE user_id = :userId'
 		);
-		//$selectStmt->bindParam( ':userId', $fromEmail );
+		$selectStmt->bindParam( ':userId', $fromEmail );
 		$selectStmt->execute();
 		$accessToken = $selectStmt->fetchColumn();
 

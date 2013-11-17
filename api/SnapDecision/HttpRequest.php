@@ -134,7 +134,9 @@ class HttpRequest {
 			}
 
 			list( $key, $rawValue ) = $split;
-			while ( $i < $rawHeadersLen && ( $rawHeaders[$i + 1][0] == ' ' || $rawHeaders[$i + 1][0] == "\t" ) ) {
+			while ( $i + 1 < $rawHeadersLen &&
+				( $rawHeaders[$i + 1][0] == ' ' || $rawHeaders[$i + 1][0] == "\t"
+			) ) {
 				$rawValue .= $rawHeaders[$i++];
 			}
 
