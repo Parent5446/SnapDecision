@@ -42,7 +42,7 @@ class SearchController
 	public function get( array $params, $data ) {
 		if(!isset($params))
 		{
-			throw new HttpException( 400 ); // Return 400
+			throw new HttpException( 400, "Invalid request type" ); // Return 400
 		}
 		$query = Array();
 		$responce = Array();
@@ -69,12 +69,12 @@ class SearchController
 		}
 		else
 		{
-			throw new HttpException( 400 );
+			throw new HttpException( 400, "Invalid request type" );
 		}
 
 		if($json['totalItems'] > 0)
 		{
-			return ;//0
+			return [];//0
 		}
 
 
